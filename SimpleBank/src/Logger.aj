@@ -11,17 +11,15 @@ public aspect Logger {
     pointcut transaccion() : call(* money*(..) );
     after() : transaccion() {
     	
+    	
     	try {
-    		if (!file.exists()) {
-                file.createNewFile();
-            }
-    		FileWriter fw = new FileWriter(file);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write("Tipo de transaccion: "+thisJoinPoint.toShortString()+
-            		" Hora"+cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE));
-            bw.close();
+    		
+    		FileWriter fw = new FileWriter(file,true);
+            fw.write("Tipo de transaccion: "+thisJoinPoint.toShortString()+
+            		" Hora"+cal.getTime());
+            fw.close();
     	}catch(Exception e){
-    		e.printStackTrace();
+    		e.getMessage();
     		
     	}
     	
